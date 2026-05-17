@@ -1,0 +1,344 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --card-w: 360px;
+  --card-h: 520px;
+  --card-radius: 20px;
+  --perspective: 900px;
+  --color-bg: #080808;
+  --color-card: #111113;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-surface: rgba(255, 255, 255, 0.06);
+  --color-text-1: #f2f2f7;
+  --color-text-2: rgba(242, 242, 247, 0.55);
+  --color-accent: #6e6ef5;
+  --color-tag-bg: rgba(255, 255, 255, 0.07);
+  --color-tag-border: rgba(255, 255, 255, 0.12);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text-1);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.scene {
+  perspective: var(--perspective);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100dvh;
+  background: var(--color-bg);
+  position: relative;
+}
+
+.card {
+  width: var(--card-w);
+  cursor: pointer;
+  user-select: none;
+}
+
+.card__rotator {
+  transform-style: preserve-3d;
+  transform: rotateY(var(--tilt-left-right, 0deg)) rotateX(var(--tilt-up-down, 0deg));
+  border-radius: var(--card-radius);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px var(--color-border),
+    0 0 40px rgba(110, 110, 245, calc(var(--effect-intensity, 0) * 0.15));
+  will-change: transform;
+}
+
+.card__front {
+  position: relative;
+  border-radius: var(--card-radius);
+  background: var(--color-card);
+  overflow: hidden;
+  z-index: 1;
+  height: var(--card-h);
+  backface-visibility: hidden;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 24px;
+  gap: 20px;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent), rgba(110, 110, 245, 0.5));
+  border: 1px solid rgba(110, 110, 245, 0.3);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-1);
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.card__name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: var(--color-text-1);
+}
+
+.card__role {
+  font-size: 12px;
+  color: var(--color-text-2);
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.card__divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: 4px 0;
+}
+
+.card__tagline {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-2);
+  font-weight: 300;
+  word-spacing: 0.05em;
+}
+
+.card__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: var(--color-tag-bg);
+  border: 1px solid var(--color-tag-border);
+  color: var(--color-text-2);
+  letter-spacing: 0.2px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.skill-tag:hover {
+  background: var(--color-surface);
+  border-color: rgba(110, 110, 245, 0.3);
+  color: var(--color-accent);
+}
+
+.card__footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contact-item {
+  font-size: 12px;
+  color: var(--color-text-2);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+}
+
+.card__socials {
+  display: flex;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.social-link {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: grid;
+  place-items: center;
+  color: var(--color-text-2);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.social-link:hover {
+  background: rgba(110, 110, 245, 0.15);
+  border-color: rgba(110, 110, 245, 0.3);
+  color: var(--color-accent);
+}
+
+/* Holographic shine layer */
+.card__shine {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  background: repeating-linear-gradient(
+    135deg,
+    hsla(0, 100%, 64%, 0.35) 0%,
+    hsla(55, 100%, 64%, 0.35) 8%,
+    hsla(110, 100%, 64%, 0.35) 16%,
+    hsla(165, 100%, 64%, 0.35) 24%,
+    hsla(220, 100%, 64%, 0.35) 32%,
+    hsla(275, 100%, 64%, 0.35) 40%,
+    hsla(330, 100%, 64%, 0.35) 48%,
+    hsla(0, 100%, 64%, 0.35) 56%
+  );
+  background-size: 400% 400%;
+  background-position: var(--background-x, 50%) var(--background-y, 50%);
+  mix-blend-mode: color-dodge;
+  opacity: calc(0.05 + var(--effect-intensity, 0) * 0.55);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Glare layer */
+.card__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  background: radial-gradient(
+    farthest-corner ellipse at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    hsla(0, 0%, 100%, 0.35) 0%,
+    transparent 65%
+  );
+  mix-blend-mode: overlay;
+  opacity: calc(var(--effect-intensity, 0) * 0.9);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* iOS motion permission prompt — floating pill, non-blocking */
+.motion-prompt {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+.motion-prompt__content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(17, 17, 19, 0.85);
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  padding: 10px 16px 10px 14px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.motion-prompt__content p {
+  font-size: 12px;
+  color: var(--color-text-2);
+  margin: 0;
+}
+
+.motion-prompt__btn {
+  padding: 6px 14px;
+  border: none;
+  border-radius: 100px;
+  background: var(--color-accent);
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.motion-prompt__btn:active {
+  transform: scale(0.96);
+  opacity: 0.85;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  :root {
+    --card-w: 88vw;
+    --card-h: auto;
+  }
+
+  .card__content {
+    padding: 20px 18px 18px;
+    gap: 16px;
+  }
+
+  .card__header {
+    gap: 12px;
+  }
+
+  .card__avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+  }
+
+  .card__name {
+    font-size: 18px;
+  }
+
+  .card__role {
+    font-size: 11px;
+  }
+
+  .card__tagline {
+    font-size: 13px;
+  }
+
+  .skill-tag {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .contact-item {
+    font-size: 11px;
+  }
+
+  .social-link {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+}

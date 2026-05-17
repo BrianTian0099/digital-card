@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="color-scheme" content="dark">
+  <title>Digital Card</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scene">
+    <div class="card">
+      <div class="card__rotator">
+        <div class="card__front">
+          <!-- injected by renderCard() -->
+        </div>
+        <div class="card__shine"></div>
+        <div class="card__glare"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- iOS motion permission prompt -->
+  <div class="motion-prompt" id="motionPrompt" hidden>
+    <div class="motion-prompt__content">
+      <p>Enable tilt effect for better experience</p>
+      <button class="motion-prompt__btn" id="motionBtn">Enable</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
